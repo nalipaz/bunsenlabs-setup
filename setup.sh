@@ -19,7 +19,7 @@ sudo apt-get install shutter -y
 # Virtualbox and virtualbox extension pack for usb support.
 sudo apt-get install build-essential linux-headers-`uname -r` dkms libxml2-utils -y
 sudo apt-get install -t jessie-backports virtualbox -y
-curl -LO $(curl -s "https://www.virtualbox.org/wiki/Downloads" | xmllint --xpath 'string((//div[@id="wikipage"]//a[@class="ext-link"])[4]/@href)' --html /tmp/vbox.html -)
+curl -LO $(curl -s "https://www.virtualbox.org/wiki/Downloads" | xmllint --xpath 'string((//div[@id="wikipage"]//a[@class="ext-link"])[4]/@href)' --html -)
 VBoxManage extpack install --replace Oracle*.vbox-extpack
 
 # Make lightdm default the username to last logged in user
