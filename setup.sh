@@ -43,6 +43,7 @@ CMD
 echo "Installing Virtualbox extension pack for usb support..."
 sleep 2
 sudo apt-get install libxml2-utils -y
+echo "Downloading the Virtualbox extension pack, sometimes this can take a while..."
 curl -LO $(curl -s "https://www.virtualbox.org/wiki/Downloads" | xmllint --xpath 'string((//div[@id="wikipage"]//a[@class="ext-link"])[4]/@href)' --html -)
 VBoxManage extpack install --replace Oracle*.vbox-extpack
 sudo aptitude purge libxml2-utils -y
