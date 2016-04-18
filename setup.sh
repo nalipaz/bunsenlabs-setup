@@ -26,7 +26,7 @@ VBoxManage extpack install --replace Oracle*.vbox-extpack
 sudo sed -i 's@greeter\-hide\-users=true@greeter-hide-users=false@' /etc/lightdm/lightdm.conf
 
 # Setup plymouth for a better login experience in lvm encrypted drives.
-sudo aptitude install plymouth plymouth-themes -y
+sudo aptitude install plymouth plymouth-themes bunsen-images-extra -y
 convert ~/Pictures/wallpapers/shared/bunsen/bunsen-images/bl-default/bl-login-1920x1200.png -resize $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")^ -gravity center -crop $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")+0+0 ~/Pictures/wallpapers/bl-grub-$(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@").png
 cp ~/Pictures/wallpapers/bl-grub-*.png ~/Pictures/wallpapers/bl-wallpaper.png
 sudo cp ~/Pictures/wallpapers/bl-grub-*.png /boot/grub/
