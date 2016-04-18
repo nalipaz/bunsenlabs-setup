@@ -3,6 +3,7 @@
 cd /tmp/
 
 # Google chrome, not chromium.
+echo "Setup Google Chrome dependencies..."
 sudo apt-get install libxss1 libappindicator1 libindicator7 -y
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome*.deb
@@ -31,15 +32,18 @@ convert ~/Pictures/wallpapers/shared/bunsen/bunsen-images/bl-default/bl-login-19
 cp ~/Pictures/wallpapers/bl-grub-*.png ~/Pictures/wallpapers/bl-wallpaper.png
 sudo cp ~/Pictures/wallpapers/bl-grub-*.png /boot/grub/
 sudo sed -i -E "s@GRUB_CMDLINE_LINUX_DEFAULT=\"([a-z\s0-9]+)\"@GRUB_CMDLINE_LINUX_DEFAULT=\"\1 splash loglevel=3 vga=current\"@" /etc/default/grub
-sudo su && cd /tmp/
-echo $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@GRUB_GFXMODE=\1x\2@") >> /etc/default/grub
-update-grub
-if [[ $(lspci | echo $(grep -i -E 'vga|3d|2d') | sed -E 's@.*(intel|ati|nvidia)\s.*@\1@i') == 'Intel' ]]; then printf "# KMS\nintel_agp\ndrm\ni915 modeset=1" >> /etc/initramfs-tools/modules; fi
-wget https://github.com/nalipaz/bunsen-plymouth-theme/archive/master.zip && unzip master.zip && rm master.zip
-mv bunsen-plymouth-theme-master/ /usr/share/plymouth/themes/bunsen
-/usr/sbin/plymouth-set-default-theme bunsen
-update-initramfs -u
-exit
+sudo su &&\
+ cd /tmp/ &&\
+ echo $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@GRUB_GFXMODE=\1x\2@") >> /etc/default/grub &&\
+ update-grub &&\
+ if [[ $(lspci | echo $(grep -i -E 'vga|3d|2d') | sed -E 's@.*(intel|ati|nvidia)\s.*@\1@i') == 'Intel' ]]; then printf "# KMS\nintel_agp\ndrm\ni915 modeset=1" >> /etc/initramfs-tools/modules; fi &&\
+ wget https://github.com/nalipaz/bunsen-plymouth-theme/archive/master.zip &&\
+ unzip master.zip &&\
+ rm master.zip &&\
+ mv bunsen-plymouth-theme-master/ /usr/share/plymouth/themes/bunsen &&\
+ /usr/sbin/plymouth-set-default-theme bunsen &&\
+ update-initramfs -u &&\
+ exit
 
 # Setup better menu with icons using obmen-generator.
 sudo aptitude install cpanminus build-essential
