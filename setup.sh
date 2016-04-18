@@ -5,28 +5,48 @@ cd /tmp/
 # Google chrome, not chromium.
 echo "Setup Google Chrome dependencies..."
 sudo apt-get install libxss1 libappindicator1 libindicator7 -y
+echo "Download Google Chrome..."
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+echo "Install Google Chrome..."
 sudo dpkg -i google-chrome*.deb
 ## Add to startups as a background app.
+echo "Add Google Chrome as a background app in the openbox autostarted applications."
 echo "(sleep 4 && /usr/bin/google-chrome-stable --no-startup-window) &" >> /home/$USER/.config/openbox/autostart
+sleep 2
 
 # vim and ag.
+echo "Install vim and ag for better development..."
 sudo apt-get install vim silversearcher-ag -y
 
 # Shutter.
+echo "Install shutter for better screenshots and setup preferences..."
 mv bunsenlabs-setup-master/home/.shutter ~
 sudo apt-get install shutter -y 
 
 # Virtualbox and virtualbox extension pack for usb support.
-sudo apt-get install build-essential linux-headers-`uname -r` dkms libxml2-utils -y
+echo "Install Virtualbox dependencies..."
+sudo apt-get install build-essential libssl-dev linux-headers-`uname -r` -y
+sudo apt-get install dkms -y
+echo "Install Virtualbox"
 sudo apt-get install -t jessie-backports virtualbox -y
+sudo su <<CMD
+ /etc/init.d/vboxdrv setup
+ exit
+CMD
+# Install virtualbox extension pack.
+echo "Installing Virtualbox extension pack for usb support..."
+sudo apt-get install libxml2-utils -y
 curl -LO $(curl -s "https://www.virtualbox.org/wiki/Downloads" | xmllint --xpath 'string((//div[@id="wikipage"]//a[@class="ext-link"])[4]/@href)' --html -)
 VBoxManage extpack install --replace Oracle*.vbox-extpack
+sudo aptitude purge libxml2-utils -y
 
 # Make lightdm default the username to last logged in user
+echo "Make login default to last logged in user..."
 sudo sed -i 's@greeter\-hide\-users=true@greeter-hide-users=false@' /etc/lightdm/lightdm.conf
+sleep 2
 
 # Setup plymouth for a better login experience in lvm encrypted drives.
+echo "Setup plymouth for a better login experience on an lvm encrypted drive..."
 sudo aptitude install plymouth plymouth-themes bunsen-images-extra -y
 convert ~/Pictures/wallpapers/shared/bunsen/bunsen-images/bl-default/bl-login-1920x1200.png -resize $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")^ -gravity center -crop $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")+0+0 ~/Pictures/wallpapers/bl-grub-$(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@").png
 cp ~/Pictures/wallpapers/bl-grub-*.png ~/Pictures/wallpapers/bl-wallpaper.png
@@ -46,7 +66,8 @@ sudo su <<CMD
  exit
 CMD
 
-# Setup better menu with icons using obmen-generator.
+# Setup better menu with icons using obmenu-generator.
+echo "Setup better menu with icons using obmenu-generator."
 sudo aptitude install cpanminus build-essential
 wget https://github.com/trizen/obmenu-generator/archive/master.zip && unzip master.zip && rm master.zip
 chmod +x obmenu-generator/obmenu-generator
@@ -55,25 +76,35 @@ sudo cpanm Linux::DesktopFiles
 sudo cpanm Data::Dump
 rm obmenu-generator
 mv bunsenlabs-setup-master/home/.config/obmenu-generator ~/.config/
+obmenu-generator -c ~/.config/obmenu-generator/schema.pl
 
 # Alter tint2 preferences.
+echo "Setup tint2 to use our preferences..."
 sed -r 's@^#time@time@' ~/.config/tint2/tint2rc
 sed -r 's@^time([0-9])_format.*$@time\1_format = %a %l:%M %p %Z on %e %b %Y@' ~/.config/tint2/tint2rc
 sed -r 's@^(time2_format.*)$@\1\ntime2_timezone = :Asia/Tokyo@' ~/.config/tint2/tint2rc
 sed -r 's@time1_font\s=\s(.*)\s([0-9]+)@time1_font = \1 10@' ~/.config/tint2/tint2rc
 sed -r 's@time2_font\s=\s(.*)\s([0-9]+)@time2_font = \1 9@' ~/.config/tint2/tint2rc
+sleep 2
 
 # Change everything to Bunsen-Blue-Dark theme.
+echo "Change theme to Bunsen-Blue-Dark system-wide..."
 sed '/<theme>/!b;n;c\    <name>Bunsen-Blue-Dark</name>' ~/.config/openbox/rc.xml
 sed -r 's@^gtk-theme-name=Bunsen$@gtk-theme-name=Bunsen-Blue-Dark@' ~/.config/gtk-3.0/settings.ini
 sed -r 's@^([^<]+)<property\sname="theme"\stype="string"\svalue="([a-zA-Z\-]+)"/>$@\1<property name="theme" type="string" value="Bunsen-Blue-Dark"/>@' .config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
+sleep 2
 
 # Set wallpaper to image that matches Bunsen-Blue-Dark theme.
 sed -r "s@file=.*@file=/home/$USER/Pictures/bl-wallpaper.png@" ~/.config/nitrogen/bg-saved.cfg
 
 # Setup thunar preferences.
+echo "Setup Thunar preferences..."
 sed -i 's@ThunarLocationButtons@ThunarLocationEntry@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
 sed -i 's@<property\sname="last-show-hidden"\stype="bool"\svalue="false"/>@<property name="last-show-hidden" type="bool" value="true"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
 sed -i 's@<property\sname="misc-single-click"\stype="bool"\svalue="true"/>@<property name="misc-single-click" type="bool" value="false"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
 sed -i '/<\/channel>/i \
   <property name="misc-middle-click-in-tab" type="bool" value="true"/>' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
+
+# Setup openbox keybindings for shutter...
+
+# Setup docker and vagrant/vagrant plugins.
