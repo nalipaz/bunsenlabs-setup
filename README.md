@@ -11,9 +11,9 @@ Then follow the prompts (if any).
 
 Running the script will do the following to the installation:
 
- * Install Google Chrome
+ * Install Google Chrome, official (not chromium)
  * Install vim
- * Install silver search ag
+ * Install silver searcher ag
  * Install shutter and setup new screenshot keybindings in openbox which replace the stock keybindings
  * Install virtualbox and the virtualbox extension pack
  * Configure lightdm to default the login to the last user who logged in
