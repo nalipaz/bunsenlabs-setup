@@ -81,8 +81,8 @@ echo "Setup better menu with icons using obmenu-generator."
 sleep 2
 sudo aptitude install cpanminus build-essential
 wget https://github.com/trizen/obmenu-generator/archive/master.zip && unzip master.zip && rm master.zip
-chmod +x obmenu-generator/obmenu-generator
-sudo mv obmenu-generator/obmenu-generator /usr/bin/
+chmod +x obmenu-generator-master/obmenu-generator
+sudo mv obmenu-generator-master/obmenu-generator /usr/bin/
 sudo cpanm Linux::DesktopFiles
 sudo cpanm Data::Dump
 rm obmenu-generator
