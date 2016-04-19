@@ -3,12 +3,12 @@
 cd /tmp/
 
 # Google chrome, not chromium.
-echo "Setup Google Chrome dependencies..."
+echo "### Setup Google Chrome dependencies..."
 sleep 4
 sudo apt-get install libxss1 libappindicator1 libindicator7 -y
 echo "### Download Google Chrome..."
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-echo "Install Google Chrome..."
+echo "### Install Google Chrome..."
 sleep 4
 sudo dpkg -i google-chrome*.deb
 ## Add to startups as a background app.
