@@ -34,7 +34,7 @@ sudo apt-get install build-essential libssl-dev linux-headers-`uname -r` -y
 sudo apt-get install dkms -y
 echo "Install Virtualbox"
 sleep 2
-sudo apt-get install -t jessie-backports virtualbox -y
+sudo apt-get install -t jessie-backports virtualbox virtualbox-dkms -y
 sudo su <<CMD
  /etc/init.d/vboxdrv setup
  exit
