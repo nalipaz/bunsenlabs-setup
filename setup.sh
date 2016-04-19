@@ -58,7 +58,7 @@ sudo sed -i 's@greeter\-hide\-users=true@greeter-hide-users=false@' /etc/lightdm
 # Setup plymouth for a better login experience in lvm encrypted drives.
 echo "Setup plymouth for a better login experience on an lvm encrypted drive..."
 sleep 2
-sudo aptitude install plymouth plymouth-themes bunsen-images-extra -y
+sudo aptitude install plymouth plymouth-themes bunsen-images-extra imagemagick -y
 convert /usr/share/images/bunsen/wallpapers/default/flame-text-1920x1200-centre-blue.png -resize $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")^ -gravity center -crop $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")+0+0 ~/Pictures/wallpapers/bl-grub-$(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@").png
 cp ~/Pictures/wallpapers/bl-grub-*.png ~/Pictures/wallpapers/bl-wallpaper.png
 sudo cp ~/Pictures/wallpapers/bl-grub-*.png /boot/grub/
@@ -93,21 +93,21 @@ obmenu-generator -p -i
 # Alter tint2 preferences.
 echo "Setup tint2 to use our preferences..."
 sleep 2
-sed -r 's@^#time@time@' ~/.config/tint2/tint2rc
-sed -r 's@^time([0-9])_format.*$@time\1_format = %a %l:%M %p %Z on %e %b %Y@' ~/.config/tint2/tint2rc
-sed -r 's@^(time2_format.*)$@\1\ntime2_timezone = :Asia/Tokyo@' ~/.config/tint2/tint2rc
-sed -r 's@time1_font\s=\s(.*)\s([0-9]+)@time1_font = \1 10@' ~/.config/tint2/tint2rc
-sed -r 's@time2_font\s=\s(.*)\s([0-9]+)@time2_font = \1 9@' ~/.config/tint2/tint2rc
+sed -i -r 's@^#time@time@' ~/.config/tint2/tint2rc
+sed -i -r 's@^time([0-9])_format.*$@time\1_format = %a %l:%M %p %Z on %e %b %Y@' ~/.config/tint2/tint2rc
+sed -i -r 's@^(time2_format.*)$@\1\ntime2_timezone = :Asia/Tokyo@' ~/.config/tint2/tint2rc
+sed -i -r 's@time1_font\s=\s(.*)\s([0-9]+)@time1_font = \1 10@' ~/.config/tint2/tint2rc
+sed -i -r 's@time2_font\s=\s(.*)\s([0-9]+)@time2_font = \1 9@' ~/.config/tint2/tint2rc
 
 # Change everything to Bunsen-Blue-Dark theme.
 echo "Change theme to Bunsen-Blue-Dark system-wide..."
 sleep 2
-sed '/<theme>/!b;n;c\    <name>Bunsen-Blue-Dark</name>' ~/.config/openbox/rc.xml
-sed -r 's@^gtk-theme-name=Bunsen$@gtk-theme-name=Bunsen-Blue-Dark@' ~/.config/gtk-3.0/settings.ini
-sed -r 's@^([^<]+)<property\sname="theme"\stype="string"\svalue="([a-zA-Z\-]+)"/>$@\1<property name="theme" type="string" value="Bunsen-Blue-Dark"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
+sed -i '/<theme>/!b;n;c\    <name>Bunsen-Blue-Dark</name>' ~/.config/openbox/rc.xml
+sed -i -r 's@^gtk-theme-name=Bunsen$@gtk-theme-name=Bunsen-Blue-Dark@' ~/.config/gtk-3.0/settings.ini
+sed -i -r 's@^([^<]+)<property\sname="theme"\stype="string"\svalue="([a-zA-Z\-]+)"/>$@\1<property name="theme" type="string" value="Bunsen-Blue-Dark"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
 
 # Set wallpaper to image that matches Bunsen-Blue-Dark theme.
-sed -r "s@file=.*@file=/home/$USER/Pictures/bl-wallpaper.png@" ~/.config/nitrogen/bg-saved.cfg
+sed -i -r "s@file=.*@file=/home/$USER/Pictures/bl-wallpaper.png@" ~/.config/nitrogen/bg-saved.cfg
 
 # Setup thunar preferences.
 echo "Setup Thunar preferences..."
