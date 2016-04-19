@@ -57,7 +57,7 @@ sudo sed -i 's@greeter\-hide\-users=true@greeter-hide-users=false@' /etc/lightdm
 echo "Setup plymouth for a better login experience on an lvm encrypted drive..."
 sleep 2
 sudo aptitude install plymouth plymouth-themes bunsen-images-extra -y
-convert ~/Pictures/wallpapers/shared/bunsen/bunsen-images/bl-default/bl-login-1920x1200.png -resize $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")^ -gravity center -crop $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")+0+0 ~/Pictures/wallpapers/bl-grub-$(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@").png
+convert /usr/share/images/bunsen/wallpapers/default/flame-text-1920x1200-centre-blue.png -resize $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")^ -gravity center -crop $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")+0+0 ~/Pictures/wallpapers/bl-grub-$(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@").png
 cp ~/Pictures/wallpapers/bl-grub-*.png ~/Pictures/wallpapers/bl-wallpaper.png
 sudo cp ~/Pictures/wallpapers/bl-grub-*.png /boot/grub/
 sudo sed -i -E "s@GRUB_CMDLINE_LINUX_DEFAULT=\"([a-z\s0-9]+)\"@GRUB_CMDLINE_LINUX_DEFAULT=\"\1 splash loglevel=3 vga=current\"@" /etc/default/grub
@@ -102,7 +102,7 @@ echo "Change theme to Bunsen-Blue-Dark system-wide..."
 sleep 2
 sed '/<theme>/!b;n;c\    <name>Bunsen-Blue-Dark</name>' ~/.config/openbox/rc.xml
 sed -r 's@^gtk-theme-name=Bunsen$@gtk-theme-name=Bunsen-Blue-Dark@' ~/.config/gtk-3.0/settings.ini
-sed -r 's@^([^<]+)<property\sname="theme"\stype="string"\svalue="([a-zA-Z\-]+)"/>$@\1<property name="theme" type="string" value="Bunsen-Blue-Dark"/>@' .config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
+sed -r 's@^([^<]+)<property\sname="theme"\stype="string"\svalue="([a-zA-Z\-]+)"/>$@\1<property name="theme" type="string" value="Bunsen-Blue-Dark"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
 
 # Set wallpaper to image that matches Bunsen-Blue-Dark theme.
 sed -r "s@file=.*@file=/home/$USER/Pictures/bl-wallpaper.png@" ~/.config/nitrogen/bg-saved.cfg
