@@ -27,7 +27,15 @@ sudo apt-get install vim silversearcher-ag -y
 echo "### Install shutter for better screenshots and setup preferences..."
 sleep 4
 mv bunsenlabs-setup-master/home/.shutter ~
-sudo apt-get install shutter -y 
+sudo apt-get install shutter -y
+sed -i '@<command>xfce4-screenshooter</command>@<command>shutter -f</command>@' ~/.config/openbox/rc.xml
+sed -i '@<command>scrot.*</command>@<command>shutter -w</command>@' ~/.config/openbox/rc.xml
+sed '/<command>shutter\s\-w<\/command>/{N;N;s/$/\
+    <keybind key="S-Print">\
+      <action name="Execute">\
+        <command>shutter \-s<\/command>\
+      <\/action>\
+    <\/keybind>/}' ~/.config/openbox/rc.xml
 
 # Virtualbox and virtualbox extension pack for usb support.
 echo "### Install Virtualbox dependencies..."
@@ -134,10 +142,6 @@ sed -i 's@<property\sname="last-show-hidden"\stype="bool"\svalue="false"/>@<prop
 sed -i 's@<property\sname="misc-single-click"\stype="bool"\svalue="true"/>@<property name="misc-single-click" type="bool" value="false"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
 sed -i '/<\/channel>/i \
   <property name="misc-middle-click-in-tab" type="bool" value="true"/>' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
-
-# Setup openbox keybindings for shutter...
-
-# Setup docker and vagrant/vagrant plugins.
 
 echo "### Rebooting to apply all changes..."
 sleep 4
