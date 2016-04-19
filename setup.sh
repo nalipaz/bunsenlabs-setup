@@ -79,7 +79,7 @@ CMD
 # Setup better menu with icons using obmenu-generator.
 echo "Setup better menu with icons using obmenu-generator."
 sleep 2
-sudo aptitude install cpanminus build-essential
+sudo aptitude install cpanminus build-essential -y
 wget https://github.com/trizen/obmenu-generator/archive/master.zip && unzip master.zip && rm master.zip
 chmod +x obmenu-generator-master/obmenu-generator
 sudo mv obmenu-generator-master/obmenu-generator /usr/bin/
@@ -87,7 +87,7 @@ sudo cpanm Linux::DesktopFiles
 sudo cpanm Data::Dump
 rm obmenu-generator
 mv bunsenlabs-setup-master/home/.config/obmenu-generator ~/.config/
-obmenu-generator -c ~/.config/obmenu-generator/schema.pl
+obmenu-generator -p -i
 
 # Alter tint2 preferences.
 echo "Setup tint2 to use our preferences..."
