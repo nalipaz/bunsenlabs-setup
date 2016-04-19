@@ -15,7 +15,7 @@ sudo dpkg -i google-chrome*.deb
 echo "### Add Google Chrome as a background app in the openbox autostarted applications."
 sleep 4
 echo "(sleep 4 && /usr/bin/google-chrome-stable --no-startup-window) &" >> /home/$USER/.config/openbox/autostart
-echo "### You must sign in to Google Chrome and have at least one extension that runs as a background app for chrome to start up correctly, please sign and and make sure you have a background app installed, then quit Google Chrome to resume this script..."
+echo "### You must sign in to Google Chrome and have at least one extension that runs as a background app for chrome to start up correctly, please sign and and make sure you have a background app installed, then *quit* Google Chrome to resume this script..."
 /usr/bin/google-chrome-stable
 
 # vim and ag.
