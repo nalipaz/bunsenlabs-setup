@@ -122,7 +122,7 @@ sed -i -f 's@^gtk-theme-name="([^"]+)"$@gtk-theme-name="Bunsen-Blue-Dark"@' ~/.g
 reloadGTK
 
 # Set wallpaper to image that matches Bunsen-Blue-Dark theme.
-nitrogen --save --set-zoom-fill "/home/$USER/Pictures/wallpaper/bl-wallpaper.png"
+nitrogen --save --set-zoom-fill "/home/$USER/Pictures/wallpapers/bl-wallpaper.png"
 
 # Setup thunar preferences.
 echo "### Setup Thunar preferences..."
