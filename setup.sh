@@ -39,6 +39,7 @@ sudo su <<CMD
  /etc/init.d/vboxdrv setup
  exit
 CMD
+
 # Install virtualbox extension pack.
 echo "Installing Virtualbox extension pack for usb support..."
 sleep 2
@@ -65,7 +66,7 @@ sudo su <<CMD
  cd /tmp/
  echo $(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@GRUB_GFXMODE=\1x\2@") >> /etc/default/grub
  update-grub
- if [[ $(lspci | echo $(grep -i -E 'vga|3d|2d') | sed -E 's@.*(intel|ati|nvidia)\s.*@\1@i') == 'Intel' ]]; then printf "# KMS\nintel_agp\ndrm\ni915 modeset=1" >> /etc/initramfs-tools/modules; fi
+ if [[ "$(lspci | echo $(grep -i -E 'vga|3d|2d') | sed -E 's@.*(intel|ati|nvidia)\s.*@\1@i')" == 'Intel' ]]; then printf "# KMS\nintel_agp\ndrm\ni915 modeset=1" >> /etc/initramfs-tools/modules; fi
  wget https://github.com/nalipaz/bunsen-plymouth-theme/archive/master.zip
  unzip master.zip
  rm master.zip
