@@ -118,7 +118,7 @@ END
 sed -i '/<theme>/!b;n;c\    <name>Bunsen-Blue-Dark</name>' ~/.config/openbox/rc.xml
 sed -i -r 's@^gtk-theme-name=Bunsen$@gtk-theme-name=Bunsen-Blue-Dark@' ~/.config/gtk-3.0/settings.ini
 sed -i -r 's@^([^<]+)<property\sname="theme"\stype="string"\svalue="([a-zA-Z\-]+)"/>$@\1<property name="theme" type="string" value="Bunsen-Blue-Dark"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
-sed -i -f 's@^gtk-theme-name="([^"]+)"$@gtk-theme-name="Bunsen-Blue-Dark"@' ~/.gtkrc-2.0
+sed -i -r 's@^gtk-theme-name="([^"]+)"$@gtk-theme-name="Bunsen-Blue-Dark"@' ~/.gtkrc-2.0
 reloadGTK
 
 # Set wallpaper to image that matches Bunsen-Blue-Dark theme.
