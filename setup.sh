@@ -4,36 +4,36 @@ cd /tmp/
 
 # Google chrome, not chromium.
 echo "Setup Google Chrome dependencies..."
-sleep 2
+sleep 4
 sudo apt-get install libxss1 libappindicator1 libindicator7 -y
-echo "Download Google Chrome..."
+echo "### Download Google Chrome..."
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 echo "Install Google Chrome..."
-sleep 2
+sleep 4
 sudo dpkg -i google-chrome*.deb
 ## Add to startups as a background app.
-echo "Add Google Chrome as a background app in the openbox autostarted applications."
-sleep 2
+echo "### Add Google Chrome as a background app in the openbox autostarted applications."
+sleep 4
 echo "(sleep 4 && /usr/bin/google-chrome-stable --no-startup-window) &" >> /home/$USER/.config/openbox/autostart
 
 # vim and ag.
-echo "Install vim and ag for better development..."
-sleep 2
+echo "### Install vim and ag for better development..."
+sleep 4
 sudo apt-get install vim silversearcher-ag -y
 
 # Shutter.
-echo "Install shutter for better screenshots and setup preferences..."
-sleep 2
+echo "### Install shutter for better screenshots and setup preferences..."
+sleep 4
 mv bunsenlabs-setup-master/home/.shutter ~
 sudo apt-get install shutter -y 
 
 # Virtualbox and virtualbox extension pack for usb support.
-echo "Install Virtualbox dependencies..."
-sleep 2
+echo "### Install Virtualbox dependencies..."
+sleep 4
 sudo apt-get install build-essential libssl-dev linux-headers-`uname -r` -y
 sudo apt-get install dkms -y
-echo "Install Virtualbox"
-sleep 2
+echo "### Install Virtualbox"
+sleep 4
 sudo apt-get install -t jessie-backports virtualbox virtualbox-dkms -y
 sudo su <<CMD
  /etc/init.d/vboxdrv setup
@@ -42,22 +42,22 @@ CMD
 sudo dpkg-reconfigure virtualbox-dkms && sudo modprobe vboxdrv
 
 # Install virtualbox extension pack.
-echo "Installing Virtualbox extension pack for usb support..."
-sleep 2
+echo "### Installing Virtualbox extension pack for usb support..."
+sleep 4
 sudo apt-get install libxml2-utils -y
-echo "Downloading the Virtualbox extension pack, sometimes this can take a while..."
+echo "### Downloading the Virtualbox extension pack, sometimes this can take a while..."
 curl -LO $(curl -s "https://www.virtualbox.org/wiki/Downloads" | xmllint --xpath 'string((//div[@id="wikipage"]//a[@class="ext-link"])[4]/@href)' --html -)
 VBoxManage extpack install --replace Oracle*.vbox-extpack
 sudo aptitude purge libxml2-utils -y
 
 # Make lightdm default the username to last logged in user
-echo "Make login default to last logged in user..."
-sleep 2
+echo "### Make login default to last logged in user..."
+sleep 4
 sudo sed -i 's@greeter\-hide\-users=true@greeter-hide-users=false@' /etc/lightdm/lightdm.conf
 
 # Setup plymouth for a better login experience in lvm encrypted drives.
-echo "Setup plymouth for a better login experience on an lvm encrypted drive..."
-sleep 2
+echo "### Setup plymouth for a better login experience on an lvm encrypted drive..."
+sleep 4
 RESOLUTION=$(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")
 sudo aptitude install plymouth plymouth-themes bunsen-images-extra imagemagick -y
 convert /usr/share/images/bunsen/wallpapers/default/flame-text-1920x1200-centre-blue.png -resize $RESOLUTION^ -gravity center -crop $RESOLUTION+0+0 ~/Pictures/wallpapers/bl-grub-$RESOLUTION.png
@@ -80,8 +80,8 @@ sudo su <<CMD
 CMD
 
 # Setup better menu with icons using obmenu-generator.
-echo "Setup better menu with icons using obmenu-generator."
-sleep 2
+echo "### Setup better menu with icons using obmenu-generator."
+sleep 4
 sudo aptitude install cpanminus build-essential -y
 wget https://github.com/trizen/obmenu-generator/archive/master.zip && unzip master.zip && rm master.zip
 chmod +x obmenu-generator-master/obmenu-generator
@@ -93,8 +93,8 @@ mv bunsenlabs-setup-master/home/.config/obmenu-generator ~/.config/
 obmenu-generator -p -i
 
 # Alter tint2 preferences.
-echo "Setup tint2 to use our preferences..."
-sleep 2
+echo "### Setup tint2 to use our preferences..."
+sleep 4
 sed -i -r 's@^#time@time@' ~/.config/tint2/tint2rc
 sed -i -r 's@^time([0-9])_format.*$@time\1_format = %a %l:%M %p %Z on %e %b %Y@' ~/.config/tint2/tint2rc
 sed -i -r 's@^(time2_format.*)$@\1\ntime2_timezone = :Asia/Tokyo@' ~/.config/tint2/tint2rc
@@ -102,8 +102,8 @@ sed -i -r 's@time1_font\s=\s(.*)\s([0-9]+)@time1_font = \1 10@' ~/.config/tint2/
 sed -i -r 's@time2_font\s=\s(.*)\s([0-9]+)@time2_font = \1 9@' ~/.config/tint2/tint2rc
 
 # Change everything to Bunsen-Blue-Dark theme.
-echo "Change theme to Bunsen-Blue-Dark system-wide..."
-sleep 2
+echo "### Change theme to Bunsen-Blue-Dark system-wide..."
+sleep 4
 function reloadGTK(){
 python - <<END
 import gtk
@@ -126,8 +126,8 @@ sed -i -r "s@file=.*@file=/home/$USER/Pictures/wallpaper/bl-wallpaper.png@" ~/.c
 nitrogen --restore &
 
 # Setup thunar preferences.
-echo "Setup Thunar preferences..."
-sleep 2
+echo "### Setup Thunar preferences..."
+sleep 4
 sed -i 's@ThunarLocationButtons@ThunarLocationEntry@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
 sed -i 's@<property\sname="last-show-hidden"\stype="bool"\svalue="false"/>@<property name="last-show-hidden" type="bool" value="true"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
 sed -i 's@<property\sname="misc-single-click"\stype="bool"\svalue="true"/>@<property name="misc-single-click" type="bool" value="false"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
@@ -138,6 +138,6 @@ sed -i '/<\/channel>/i \
 
 # Setup docker and vagrant/vagrant plugins.
 
-echo "Rebooting to apply all changes..."
+echo "### Rebooting to apply all changes..."
 sleep 4
 sudo reboot
