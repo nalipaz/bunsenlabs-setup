@@ -6,6 +6,7 @@ The setup.sh script is to be ran as follows:
 cd /tmp/
 wget https://github.com/nalipaz/bunsenlabs-setup/archive/master.zip && unzip master.zip && rm master.zip
 ./bunsenlabs-setup-master/setup.sh
+
 ```
 Then follow the prompts (if any).
 
