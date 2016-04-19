@@ -36,6 +36,7 @@ sed '/<command>shutter\s\-w<\/command>/{N;N;s/$/\
         <command>shutter \-s<\/command>\
       <\/action>\
     <\/keybind>/}' ~/.config/openbox/rc.xml
+shutter --min_at_startup &
 
 # Virtualbox and virtualbox extension pack for usb support.
 echo "### Install Virtualbox dependencies..."
