@@ -39,6 +39,7 @@ sudo su <<CMD
  /etc/init.d/vboxdrv setup
  exit
 CMD
+sudo dpkg-reconfigure virtualbox-dkms && sudo modprobe vboxdrv
 
 # Install virtualbox extension pack.
 echo "Installing Virtualbox extension pack for usb support..."
