@@ -124,3 +124,5 @@ sed -i '/<\/channel>/i \
 # Setup openbox keybindings for shutter...
 
 # Setup docker and vagrant/vagrant plugins.
+
+sudo reboot
