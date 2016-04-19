@@ -104,13 +104,26 @@ sed -i -r 's@time2_font\s=\s(.*)\s([0-9]+)@time2_font = \1 9@' ~/.config/tint2/t
 # Change everything to Bunsen-Blue-Dark theme.
 echo "Change theme to Bunsen-Blue-Dark system-wide..."
 sleep 2
+function reloadGTK(){
+python - <<END
+import gtk
+events=gtk.gdk.Event(gtk.gdk.CLIENT_EVENT)
+data=gtk.gdk.atom_intern("_GTK_READ_RCFILES", False)
+events.data_format=8
+events.send_event=True
+events.message_type=data
+events.send_clientmessage_toall()
+END
+}
 sed -i '/<theme>/!b;n;c\    <name>Bunsen-Blue-Dark</name>' ~/.config/openbox/rc.xml
 sed -i -r 's@^gtk-theme-name=Bunsen$@gtk-theme-name=Bunsen-Blue-Dark@' ~/.config/gtk-3.0/settings.ini
 sed -i -r 's@^([^<]+)<property\sname="theme"\stype="string"\svalue="([a-zA-Z\-]+)"/>$@\1<property name="theme" type="string" value="Bunsen-Blue-Dark"/>@' ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-notifyd.xml
 sed -i -f 's@^gtk-theme-name="([^"]+)"$@gtk-theme-name="Bunsen-Blue-Dark"@' ~/.gtkrc-2.0
+reloadGTK
 
 # Set wallpaper to image that matches Bunsen-Blue-Dark theme.
 sed -i -r "s@file=.*@file=/home/$USER/Pictures/wallpaper/bl-wallpaper.png@" ~/.config/nitrogen/bg-saved.cfg
+nitrogen --restore &
 
 # Setup thunar preferences.
 echo "Setup Thunar preferences..."
@@ -125,4 +138,6 @@ sed -i '/<\/channel>/i \
 
 # Setup docker and vagrant/vagrant plugins.
 
+echo "Rebooting to apply all changes..."
+sleep 4
 sudo reboot
