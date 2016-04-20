@@ -55,11 +55,10 @@ sudo dpkg-reconfigure virtualbox-dkms && sudo modprobe vboxdrv
 # Install virtualbox extension pack.
 echo "### Installing Virtualbox extension pack for usb support..."
 sleep 4
-sudo apt-get install libxml2-utils -y
 echo "### Downloading the Virtualbox extension pack, sometimes this can take a while..."
-curl -LO $(curl -s "https://www.virtualbox.org/wiki/Downloads" | xmllint --xpath 'string((//div[@id="wikipage"]//a[@class="ext-link"])[4]/@href)' --html -)
+VBOXVERSION=`VBoxManage --version | sed -r 's/([0-9])\.([0-9])\.([0-9]{1,2}).*/\1.\2.\3/'`
+wget -q -N "http://download.virtualbox.org/virtualbox/$VBOXVERSION/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVERSION.vbox-extpack"
 VBoxManage extpack install --replace Oracle*.vbox-extpack
-sudo aptitude purge libxml2-utils -y
 
 # Make lightdm default the username to last logged in user
 echo "### Make login default to last logged in user..."
