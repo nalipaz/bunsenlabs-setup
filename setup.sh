@@ -147,6 +147,8 @@ sed -i '/<\/channel>/i \
 echo "### Installing gimp..."
 sleep 2
 sudo apt-get install gimp -y
+# Basically 
+cp bunsenlabs-setup-master/home/.gimp-x.x/sessionrc ~/.gimp-*/ -r
 
 echo "### Rebooting to apply all changes..."
 sleep 4
