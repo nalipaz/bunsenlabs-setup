@@ -143,6 +143,11 @@ sed -i 's@<property\sname="misc-single-click"\stype="bool"\svalue="true"/>@<prop
 sed -i '/<\/channel>/i \
   <property name="misc-middle-click-in-tab" type="bool" value="true"/>' ~/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml
 
+# Install some programs.
+echo "### Installing gimp..."
+sleep 2
+sudo apt-get install gimp -y
+
 echo "### Rebooting to apply all changes..."
 sleep 4
 sudo reboot
