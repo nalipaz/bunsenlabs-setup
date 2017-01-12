@@ -147,7 +147,7 @@ sed -i '/<\/channel>/i \
 echo "### Installing gimp..."
 sleep 2
 sudo apt-get install gimp -y
-# Basically 
+# Basically just set gimp to single-window mode.
 cp bunsenlabs-setup-master/home/.gimp-x.x/sessionrc ~/.gimp-*/ -r
 
 echo "### Rebooting to apply all changes..."
