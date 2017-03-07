@@ -153,3 +153,14 @@ cp bunsenlabs-setup-master/home/.gimp-x.x/sessionrc ~/.gimp-*/ -r
 echo "### Rebooting to apply all changes..."
 sleep 4
 sudo reboot
+
+# Setup Docker
+sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get -y install docker-ce
+sudo mkdir -p /etc/systemd/system/docker.service.d/ &&\
+printf '[Service]
+ExecStart=
+ExecStart=/usr/bin/docker daemon -H fd:// -s devicemapper
+' | sudo tee /etc/systemd/system/docker.service.d/execstart_override.conf
+sudo systemctl daemon-reload
+sudo systemctl start docker
