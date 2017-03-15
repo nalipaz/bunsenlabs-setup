@@ -103,6 +103,7 @@ mv bunsenlabs-setup-master/home/.config/obmenu-generator ~/.config/
 obmenu-generator -p -i
 
 # Alter tint2 preferences.
+sudo apt-get install tint2 -t jessie-backports
 echo "### Setup tint2 to use our preferences..."
 sleep 4
 sed -i -r 's@^#time@time@' ~/.config/tint2/tint2rc
