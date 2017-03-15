@@ -155,6 +155,9 @@ echo "### Rebooting to apply all changes..."
 sleep 4
 sudo reboot
 
+# Disable compositing
+bl-compositor --stop
+
 # Setup Docker
 sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
