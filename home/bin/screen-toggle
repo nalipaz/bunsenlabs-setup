@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Some displays don't show up without using an interstitial configuration first.
+if [ -f ~/.screenlayout/${1}-interstitial.sh ]; then
+  ~/.screenlayout/${1}-interstitial.sh;
+  sleep 3
+fi
+
+~/.screenlayout/${1}.sh
+cat ~/.config/tint2/${1}-sessionfile > ~/.config/tint2/tint2-sessionfile && bl-tint2-session
