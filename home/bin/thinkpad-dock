@@ -1,0 +1,10 @@
+#!/bin/bash -e
+sleep 0.5
+username=nalipaz
+
+export DISPLAY=:0
+if [[ "$ACTION" == "add" ]]; then
+  su ${username} -c "/home/${username}/bin/screen-toggle work"
+else
+  su ${username} -c "/home/${username}/bin/screen-toggle normal"
+fi
