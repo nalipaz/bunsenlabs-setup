@@ -18,19 +18,34 @@ echo "(sleep 4 && /usr/bin/google-chrome-stable --no-startup-window) &" >> /home
 echo "### You must sign in to Google Chrome and have at least one extension that runs as a background app for chrome to start up correctly, please sign and and make sure you have a background app installed, then *quit* Google Chrome to resume this script..."
 /usr/bin/google-chrome-stable
 
-# vim and ag.
+# various development tools
+echo "### Install some needed development tools..."
+sleep 4
+sudo apt-get install vim silversearcher-ag php5-cli mosh direnv unison xclip -y
+
+# Install laptop tools for better power management.
 echo "### Install vim and ag for better development..."
 sleep 4
-sudo apt-get install vim silversearcher-ag -y
+sudo apt-get install laptop-mode-tools -y
+
+# bluetooth
+echo "### Setup bluetooth"
+sleep 4
+sudo apt-get install bluetooth blueman bluez-firmware bluez-tools xinput -y
+
+# intel stuff.
+echo "### Install intel stuff"
+sleep 4
+sudo apt-get install xinput firmware-linux-nonfree firmware-iwlwifi xserver-xorg-video-intel -y
 
 # Shutter.
 echo "### Install shutter for better screenshots and setup preferences..."
 sleep 4
 mv bunsenlabs-setup-master/home/.shutter ~
 sudo apt-get install shutter -y
-sed -i '@<command>xfce4-screenshooter</command>@<command>shutter -f</command>@' ~/.config/openbox/rc.xml
-sed -i '@<command>scrot.*</command>@<command>shutter -w</command>@' ~/.config/openbox/rc.xml
-sed '/<command>shutter\s\-w<\/command>/{N;N;s/$/\
+sed -i -r -e 's@<command>xfce4-screenshooter</command>@<command>shutter -f</command>@' ~/.config/openbox/rc.xml
+sed -i -r -e 's@<command>scrot.*</command>@<command>shutter -w</command>@' ~/.config/openbox/rc.xml
+sed -i -r -e '/<command>shutter\s\-w<\/command>/{N;N;s/$/\
     <keybind key="S-Print">\
       <action name="Execute">\
         <command>shutter \-s<\/command>\
@@ -63,7 +78,7 @@ VBoxManage extpack install --replace Oracle*.vbox-extpack
 # Make lightdm default the username to last logged in user
 echo "### Make login default to last logged in user..."
 sleep 4
-sudo sed -i 's@greeter\-hide\-users=true@greeter-hide-users=false@' /etc/lightdm/lightdm.conf
+sudo sed -i 's@#greeter\-hide\-users=true@greeter-hide-users=false@' /etc/lightdm/lightdm.conf
 
 # Setup plymouth for a better login experience in lvm encrypted drives.
 echo "### Setup plymouth for a better login experience on an lvm encrypted drive..."
