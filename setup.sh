@@ -21,7 +21,7 @@ echo "### You must sign in to Google Chrome and have at least one extension that
 # various development tools
 echo "### Install some needed development tools..."
 sleep 4
-sudo apt-get install vim silversearcher-ag php5-cli mosh direnv unison xclip dnsutils tree -y
+sudo apt-get install vim silversearcher-ag php5-cli mosh direnv unison xclip dnsutils tree meld -y
 
 # Install laptop tools for better power management.
 echo "### Install vim and ag for better development..."
