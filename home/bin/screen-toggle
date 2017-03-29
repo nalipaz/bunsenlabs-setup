@@ -7,4 +7,4 @@ if [ -f ~/.screenlayout/${1}-interstitial.sh ]; then
 fi
 
 ~/.screenlayout/${1}.sh
-cat ~/.config/tint2/${1}-sessionfile > ~/.config/tint2/tint2-sessionfile && bl-tint2-session
+cat ~/.config/tint2/${1}-sessionfile > ~/.config/tint2/tint2-sessionfile && sleep 6 && bl-tint2-session
