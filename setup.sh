@@ -2,6 +2,9 @@
 
 cd /tmp/
 
+# Upgrade kernel and drivers so they work on my current laptop, thinkpad t450s
+sudo apt-get install -t jessie-backports firmware-linux-nonfree firmware-iwlwifi xserver-xorg-video-intel linux-image-`uname -r` linux-headers-`uname -r`
+
 # Google chrome, not chromium.
 echo "### Setup Google Chrome dependencies..."
 sleep 4
@@ -32,11 +35,6 @@ sudo apt-get install laptop-mode-tools -y
 echo "### Setup bluetooth"
 sleep 4
 sudo apt-get install bluetooth blueman bluez-firmware bluez-tools xinput -y
-
-# intel stuff.
-echo "### Install intel stuff"
-sleep 4
-sudo apt-get install xinput firmware-linux-nonfree firmware-iwlwifi xserver-xorg-video-intel -y
 
 # Shutter.
 echo "### Install shutter for better screenshots and setup preferences..."
