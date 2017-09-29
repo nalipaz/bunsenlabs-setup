@@ -184,7 +184,7 @@ sudo apt-get -y install docker-ce
 sudo mkdir -p /etc/systemd/system/docker.service.d/ &&\
 printf '[Service]
 ExecStart=
-ExecStart=/usr/bin/docker daemon -H fd:// -s devicemapper
+ExecStart=/usr/bin/dockerd -H fd:// -s devicemapper
 ' | sudo tee /etc/systemd/system/docker.service.d/execstart_override.conf
 sudo systemctl daemon-reload
 sudo systemctl start docker
