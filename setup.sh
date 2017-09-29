@@ -83,8 +83,8 @@ echo "### Setup plymouth for a better login experience on an lvm encrypted drive
 sleep 4
 RESOLUTION=$(xdpyinfo | echo $(grep 'dimensions:') | sed -E "s@dimensions:\s([0-9]+)x([0-9]+).*@\1x\2@")
 sudo aptitude install plymouth plymouth-themes bunsen-images-extra imagemagick -y
-convert /usr/share/images/bunsen/wallpapers/default/flame-text-1920x1200-centre-blue.png -resize $RESOLUTION^ -gravity center -crop $RESOLUTION+0+0 ~/Pictures/wallpapers/bl-grub-$RESOLUTION.png
-cp ~/Pictures/wallpapers/bl-grub-*.png ~/Pictures/wallpapers/bl-wallpaper.png
+convert /usr/share/images/bunsen/wallpapers/default/flame-text-1920x1200-centre-blue.png -resize $RESOLUTION^ -gravity center -crop $RESOLUTION+0+0 ~/Pictures/wallpapers/bl-grub-$RESOLUTION.jpg
+cp ~/Pictures/wallpapers/bl-grub-*.jpg ~/Pictures/wallpapers/bl-wallpaper.jpg
 sudo cp ~/Pictures/wallpapers/bl-grub-*.png /boot/grub/
 sudo sed -i -E "s@GRUB_CMDLINE_LINUX_DEFAULT=\"([a-z\s0-9]+)\"@GRUB_CMDLINE_LINUX_DEFAULT=\"\1 splash loglevel=3 vga=current\"@" /etc/default/grub
 sudo update-grub
@@ -146,7 +146,7 @@ sed -i -r 's@^gtk-theme-name="([^"]+)"$@gtk-theme-name="Bunsen-Blue-Dark"@' ~/.g
 reloadGTK
 
 # Set wallpaper to image that matches Bunsen-Blue-Dark theme.
-nitrogen --save --set-zoom-fill "/home/$USER/Pictures/wallpapers/bl-wallpaper.png"
+nitrogen --save --set-zoom-fill "/home/$USER/Pictures/wallpapers/bl-wallpaper.jpg"
 
 # Setup thunar preferences.
 echo "### Setup Thunar preferences..."
@@ -161,6 +161,7 @@ sed -i '/<\/channel>/i \
 echo "### Installing gimp..."
 sleep 2
 sudo apt-get install gimp -y
+gimp
 # Basically just set gimp to single-window mode.
 cp bunsenlabs-setup-master/home/.gimp-x.x/sessionrc ~/.gimp-*/ -r
 
